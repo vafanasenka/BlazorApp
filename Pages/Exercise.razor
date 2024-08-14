@@ -1,0 +1,39 @@
+﻿@page "/exercise"
+
+@using BlazorApp.Components
+@using BlazorApp.Enums
+@using BlazorApp.Models
+
+<PageTitle>Exercise</PageTitle>
+
+<div class="container">
+    <h3>Exercise</h3>
+    <hr />
+    
+    <div class="row">
+        <div class="col-md-2"><button Status="@status" @onclick="@onReset">Reset</button></div>
+        <div class="col-md-4">
+            <select class="form-control" @onchange="@onSelectCnange">
+                @foreach(var @item in Enum.GetNames<Status>())
+                {
+                    bool isSelected = status.ToString() == @item;
+                    <option value="@item" selected="@isSelected">@item</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4">
+            <StatusComponent Status="@status" />
+        </div>
+    </div>
+</div>
+
+@code {
+    private Status status = Status.Stop;
+
+    private void onSelectCnange(ChangeEventArgs e) => status = Enum.Parse<Status>(e.Value.ToString());
+
+    private void onReset()
+    {
+        status = Status.Init; // Set the default status value here
+    }
+}

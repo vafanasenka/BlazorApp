@@ -1,0 +1,45 @@
+﻿@using BlazorApp.Models
+@inherits PersonComponentModel
+
+<h6>PersonComponent</h6>
+<EditForm Model="person">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="firstName">First Name</label>
+                <InputText id="firstName" class="form-control" @bind-Value="@person.FirstName" @oninput="OnFirstNameInput" />
+                <br />
+                <input class="form-control" @bind-value="@person.FirstName" @bind-value:event="oninput" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="lastName">Last Name</label>
+                <InputText id="lastName" class="form-control" @bind-Value="@person.LastName" @oninput="OnLastNameInput" />
+                <br />
+                <input class="form-control" @bind-value="@person.LastName" @bind-value:event="oninput" />
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    private PersonComponentModel person = new PersonComponentModel();
+
+    private void OnFirstNameInput(ChangeEventArgs e)
+    {
+        var newValue = e.Value?.ToString();
+        if (newValue != null)
+        {
+            person.FirstName = newValue;
+        }
+    }
+
+    private void OnLastNameInput(ChangeEventArgs e)
+    {
+        var newValue = e.Value?.ToString();
+        if (newValue != null)
+        {
+            person.LastName = newValue;
+        }
+    }
+}
